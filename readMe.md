@@ -1,4 +1,6 @@
-## Problème du sac à dos
+## TP optimisation M2 Amélie et Ninon
+
+# Problème du sac à dos
 
 Le problème du sac à dos à contraintes multiples consiste à sélectionner un sous-ensemble d'objets, chacun ayant un poids, un volume et une valeur (utilité), afin de maximiser la valeur totale tout en respectant les contraintes de poids et de volume du sac.
 
