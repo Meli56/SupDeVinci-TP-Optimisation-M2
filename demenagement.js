@@ -59,8 +59,58 @@ function knapsackByVolume(volumeCapacity, items) {
 // Algorithme optimisé
 // -------------------
 function knapsackByVolumeOpti(volumeCapacity, items) {
-    items.sort((a, b) => b.valuePerVolume - a.valuePerVolume);
-    return knapsackByVolume(volumeCapacity, items);
+    const scale = 10;
+    const scaledVolumeCapacity = Math.floor(volumeCapacity * scale);
+    
+    const scaledItems = items.map(item => ({
+        ...item,
+        scaledVolume: Math.floor(item.volume * scale),
+        valuePerVolume: item.value / item.volume
+    }));
+
+    let n = scaledItems.length;
+    let dp = Array(n + 1).fill().map(() => Array(scaledVolumeCapacity + 1).fill(0));
+    let choices = Array(n + 1).fill().map(() => Array(scaledVolumeCapacity + 1).fill(0));
+
+    for (let i = 1; i <= n; i++) {
+        const item = scaledItems[i - 1];
+        
+        for (let v = 0; v <= scaledVolumeCapacity; v++) {
+            dp[i][v] = dp[i-1][v];
+            choices[i][v] = 0;
+            
+            for (let q = 1; q <= item.quantity; q++) {
+                if (q * item.scaledVolume <= v) {
+                    let remainingVolume = v - q * item.scaledVolume;
+                    let valueWithItems = q * item.value + dp[i-1][remainingVolume];
+                    
+                    if (valueWithItems > dp[i][v]) {
+                        dp[i][v] = valueWithItems;
+                        choices[i][v] = q;
+                    }
+                } else {
+                    break;
+                }
+            }
+        }
+    }
+
+    let selectedItems = [];
+    let v = scaledVolumeCapacity;
+    items.sort((a, b) => b.valuePerWeight - a.valuePerWeight);
+
+    for (let i = n; i > 0; i--) {
+        const count = choices[i][v];
+        if (count > 0) {
+            selectedItems.push({ ...items[i-1], count: count });
+            v -= count * scaledItems[i-1].scaledVolume;
+        }
+    }
+
+    return {
+        maxValue: dp[n][scaledVolumeCapacity],
+        selectedItems: selectedItems
+    };
 }
 
 // ---------------------
