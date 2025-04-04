@@ -10,3 +10,5 @@ Différentes verions :
 - version initial (remplir une valise de manière classique affaire par affaire)
 - version optimisée (pareil que le premier mais de manière optimisée avec un tri par utilité)
 - version asynchrone (diviser la valise en plusieurs compartiments et les remplir en même temps)
+
+Utilisation de l'algorithme pour des problèmes plus grand comme une problématique de déménagement (on a enlevé la contrainte de poids car mon pc ne tenait pas au lancement du programme 😅
