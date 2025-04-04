@@ -271,12 +271,6 @@ const items = [
 ];
 
 
-// ---------------
-// Algo asynchrone
-// ---------------
-// console.log("\n=== Algorithme heuristique asynchrone ===");
-// runAsyncKnapsack();
-
 // ---------
 // Benchmark
 // ---------
